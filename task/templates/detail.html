@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block TITLE %}
+    {{ title }}
+{% endblock TITLE %}
+
+{% block CONTENT %}
+    <h2>{{ task.title }}</h2>
+    <p>{{ task.description }}</p>
+    <p>Status: {{ task.status }}</p>
+    <p>Created at: {{ task.created_at }}</p>
+
+    <h3>Avg. rating: {{ rating }}</h3>
+
+    <div class="forms">
+        <div class="comments">
+            <h3>Leave comments</h3>
+            <form action="{% url 'comment' task.id %}" method="post">
+                {% csrf_token %}
+                {{ comment_form }}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="rating">
+            <h3>Rating task</h3>
+
+            <form action="{% url 'rating' task.id %}" method="post">
+                {% csrf_token %}
+                {{ rating_form }}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+
+    </div>
+<div class="forms">
+    <div class="list-comments">
+        {% if comments%}
+            {% for comment in comments %}
+                <p>{{ comment.user.username }}: {{ comment.text }}</p>
+                <span>{{ comment.created_at }}</span>
+            {% endfor %}
+        {% else %}
+            <p>No comments yet</p>
+        {% endif %}
+        </div>
+
+    <div class="list-rating">
+        {% if rattings%}
+            {% for rat in rattings %}
+                <p>{{ rat.user.username }}: {{ rat.point }}</p>
+                <span>{{ rat.created_at }}</span>
+            {% endfor %}
+        {% else %}
+            <p>No comments yet</p>
+        {% endif %}
+        </div>
+</div>
+{% endblock CONTENT %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block TITLE %}
+{{ title }}
+{% endblock TITLE %}
+
+{% block CONTENT %}
+    {% for task in tasks %}
+        <div class="task">
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.description }}</p>
+            <p>Status: {{ task.status }}</p>
+            <a href="http://localhost:8000/tasks/detail/{{ task.id }}">Посмотреть детальную информацию о задаче</a>
+        </div>
+    {% endfor %}
+{% endblock CONTENT %}

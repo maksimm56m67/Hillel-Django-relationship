@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block TITLE %}
+Login
+{% endblock TITLE %}
+
+{% block CONTENT %}
+    <form class="login-form" action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Login</button>
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+    </form>
+{% endblock CONTENT %}
